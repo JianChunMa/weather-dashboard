@@ -1,21 +1,38 @@
-name: Update Weather
+name: Update Weather Data
 
 on:
-  schedule:
-    - cron: '0 * * * *'   # Every hour
   workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
 
 jobs:
-  update:
+  update-weather:
+
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - run: pip install -r requirements.txt
 
-      - run: python update_weather.py
+      - name: Install packages
+        run: |
+          pip install -r requirements.txt
+
+
+      - name: Authenticate Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GC_SERVICE_KEY_CREDENTIALS }}
+
+
+      - name: Upload weather
+        run: |
+          python update_weather.py

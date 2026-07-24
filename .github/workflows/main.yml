@@ -31,6 +31,8 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GC_SERVICE_KEY_CREDENTIALS }}
+          create_credentials_file: true
+          export_environment_variables: true
 
 
       - name: Upload weather

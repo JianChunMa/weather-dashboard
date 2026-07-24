@@ -3,7 +3,7 @@ name: Update Weather Data
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 * * * *"   # Run every hour (UTC)
 
 jobs:
   update-weather:
@@ -12,29 +12,31 @@ jobs:
 
     steps:
 
+      # Get repository code
       - name: Checkout
         uses: actions/checkout@v4
 
 
+      # Setup Python
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
 
-      - name: Install packages
+      # Install Python packages
+      - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
 
-      - name: Authenticate Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GC_SERVICE_KEY_CREDENTIALS }}
-          create_credentials_file: true
-          export_environment_variables: true
+      # Create Google service account JSON file
+      - name: Create Google credentials file
+        run: |
+          echo '${{ secrets.GC_SERVICE_KEY_CREDENTIALS }}' > key.json
 
 
-      - name: Upload weather
+      # Run weather uploader
+      - name: Upload weather data
         run: |
           python update_weather.py

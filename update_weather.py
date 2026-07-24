@@ -1,10 +1,15 @@
 import requests
 from google.cloud import bigquery
 from datetime import datetime, timezone
+from google.oauth2 import service_account
 
+credentials = service_account.Credentials.from_service_account_file(
+    "key.json"
+)
 
 # BigQuery client
 client = bigquery.Client(
+    credentials=credentials,
     project="weather-dashboard-503407"
 )
 

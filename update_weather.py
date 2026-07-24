@@ -4,8 +4,9 @@ from datetime import datetime, timezone
 
 
 # BigQuery client
-client = bigquery.Client()
-
+client = bigquery.Client(
+    project="weather-dashboard-503407"
+)
 
 # Kuala Lumpur weather
 url = (

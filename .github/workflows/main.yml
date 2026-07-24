@@ -35,6 +35,12 @@ jobs:
         run: |
           echo '${{ secrets.GC_SERVICE_KEY_CREDENTIALS }}' > key.json
 
+      - name: Check credentials file
+        run: |
+          ls -la
+          echo "Checking key.json..."
+          head -5 key.json
+
 
       # Run weather uploader
       - name: Upload weather data

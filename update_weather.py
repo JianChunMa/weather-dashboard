@@ -63,43 +63,43 @@ weather = response.json()
 # -------------------------
 table_id = "weather-dashboard-503407.weather_dashboard.weather_data"
 
-schema = [
-    bigquery.SchemaField("state", "STRING"),
-    bigquery.SchemaField("city", "STRING"),
-    bigquery.SchemaField("latitude", "FLOAT"),
-    bigquery.SchemaField("longitude", "FLOAT"),
-    bigquery.SchemaField("timezone", "STRING"),
-    bigquery.SchemaField("observation_time", "TIMESTAMP"),
-    bigquery.SchemaField("temperature", "FLOAT"),
-    bigquery.SchemaField("humidity", "INTEGER"),
-    bigquery.SchemaField("wind_speed", "FLOAT"),
-    bigquery.SchemaField("inserted_at", "TIMESTAMP"),
-]
+# schema = [
+#     bigquery.SchemaField("state", "STRING"),
+#     bigquery.SchemaField("city", "STRING"),
+#     bigquery.SchemaField("latitude", "FLOAT"),
+#     bigquery.SchemaField("longitude", "FLOAT"),
+#     bigquery.SchemaField("timezone", "STRING"),
+#     bigquery.SchemaField("observation_time", "TIMESTAMP"),
+#     bigquery.SchemaField("temperature", "FLOAT"),
+#     bigquery.SchemaField("humidity", "INTEGER"),
+#     bigquery.SchemaField("wind_speed", "FLOAT"),
+#     bigquery.SchemaField("inserted_at", "TIMESTAMP"),
+# ]
 
-# -------------------------
-# Check table
-# -------------------------
-try:
-    table = client.get_table(table_id)
+# # -------------------------
+# # Check table
+# # -------------------------
+# try:
+#     table = client.get_table(table_id)
 
-    if len(table.schema) == 0:
-        print("Table exists but has no schema. Updating schema...")
+#     if len(table.schema) == 0:
+#         print("Table exists but has no schema. Updating schema...")
 
-        table.schema = schema
-        client.update_table(table, ["schema"])
+#         table.schema = schema
+#         client.update_table(table, ["schema"])
 
-        print("Schema updated.")
+#         print("Schema updated.")
 
-    else:
-        print("Table schema already exists.")
+#     else:
+#         print("Table schema already exists.")
 
-except Exception:
-    print("Table does not exist. Creating...")
+# except Exception:
+#     print("Table does not exist. Creating...")
 
-    table = bigquery.Table(table_id, schema=schema)
-    client.create_table(table)
+#     table = bigquery.Table(table_id, schema=schema)
+#     client.create_table(table)
 
-    print("Table created.")
+#     print("Table created.")
 
 # -------------------------
 # Prepare row

@@ -227,117 +227,113 @@
 </div>
 
 <script>
-/* ---------------- city registry ---------------- */
-const CITIES = [
-  {name:"Kuala Lumpur", state:"WP Kuala Lumpur", lat:3.1390, lon:101.6869, region:"peninsula"},
-  {name:"Putrajaya",    state:"WP Putrajaya",     lat:2.9264, lon:101.6964, region:"peninsula"},
-  {name:"George Town",  state:"Penang",           lat:5.4141, lon:100.3288, region:"peninsula"},
-  {name:"Alor Setar",   state:"Kedah",            lat:6.1184, lon:100.3685, region:"peninsula"},
-  {name:"Ipoh",         state:"Perak",            lat:4.5975, lon:101.0901, region:"peninsula"},
-  {name:"Shah Alam",    state:"Selangor",         lat:3.0733, lon:101.5185, region:"peninsula"},
-  {name:"Seremban",     state:"Negeri Sembilan",  lat:2.7297, lon:101.9381, region:"peninsula"},
-  {name:"Melaka City",  state:"Melaka",           lat:2.1896, lon:102.2501, region:"peninsula"},
-  {name:"Johor Bahru",  state:"Johor",            lat:1.4927, lon:103.7414, region:"peninsula"},
-  {name:"Kuantan",      state:"Pahang",           lat:3.8077, lon:103.3260, region:"peninsula"},
-  {name:"Kuala Terengganu", state:"Terengganu",   lat:5.3302, lon:103.1408, region:"peninsula"},
-  {name:"Kota Bharu",   state:"Kelantan",         lat:6.1254, lon:102.2381, region:"peninsula"},
-  {name:"Kangar",       state:"Perlis",           lat:6.4414, lon:100.1986, region:"peninsula"},
-  {name:"Kuching",      state:"Sarawak",          lat:1.5535, lon:110.3593, region:"borneo"},
-  {name:"Kota Kinabalu",state:"Sabah",            lat:5.9804, lon:116.0735, region:"borneo"},
-  {name:"Labuan",       state:"WP Labuan",        lat:5.2831, lon:115.2308, region:"borneo"},
-];
-
+/* ---------------- Map Bounding Boxes ---------------- */
 const BOX = {
-  peninsula:{lonMin:99.5, lonMax:104.5, latMin:1.0, latMax:6.8},
-  borneo:{lonMin:109.5, lonMax:119.0, latMin:0.8, latMax:7.2},
+  peninsula: { lonMin: 99.5, lonMax: 104.5, latMin: 1.0, latMax: 6.8 },
+  borneo: { lonMin: 109.5, lonMax: 119.0, latMin: 0.8, latMax: 7.2 },
 };
-CITIES.forEach(c=>{
-  const b = BOX[c.region];
-  c.x = ((c.lon - b.lonMin)/(b.lonMax-b.lonMin))*100;
-  c.y = ((b.latMax - c.lat)/(b.latMax-b.latMin))*100;
-});
 
-function wInfo(code){
+/* ---------------- Weather Info Mapper ---------------- */
+function wInfo(code) {
   const map = {
-    0:["Clear sky","sun"], 1:["Mostly clear","sun-cloud"], 2:["Partly cloudy","sun-cloud"], 3:["Overcast","cloud"],
-    45:["Fog","fog"], 48:["Fog","fog"],
-    51:["Light drizzle","rain"], 53:["Drizzle","rain"], 55:["Heavy drizzle","rain"],
-    61:["Light rain","rain"], 63:["Rain","rain"], 65:["Heavy rain","rain"],
-    80:["Rain showers","rain"], 81:["Rain showers","rain"], 82:["Violent showers","rain"],
-    95:["Thunderstorm","storm"], 96:["Thunderstorm","storm"], 99:["Severe storm","storm"],
+    0: ["Clear sky", "sun"], 1: ["Mostly clear", "sun-cloud"], 2: ["Partly cloudy", "sun-cloud"], 3: ["Overcast", "cloud"],
+    45: ["Fog", "fog"], 48: ["Fog", "fog"],
+    51: ["Light drizzle", "rain"], 53: ["Drizzle", "rain"], 55: ["Heavy drizzle", "rain"],
+    61: ["Light rain", "rain"], 63: ["Rain", "rain"], 65: ["Heavy rain", "rain"],
+    80: ["Rain showers", "rain"], 81: ["Rain showers", "rain"], 82: ["Violent showers", "rain"],
+    95: ["Thunderstorm", "storm"], 96: ["Thunderstorm", "storm"], 99: ["Severe storm", "storm"],
   };
-  return map[code] || ["Fair","sun-cloud"];
+  return map[code] || ["Fair", "sun-cloud"];
 }
+
 const ICONS = {
-  sun:`<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.6" fill="#ffc857"/><g stroke="#ffc857" stroke-width="1.6" stroke-linecap="round"><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></g></svg>`,
-  "sun-cloud":`<svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="10" r="4" fill="#ffc857"/><path d="M6 18h11a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6 1.6A3.6 3.6 0 0 0 6 18z" fill="#e9edf0" opacity="0.9"/></svg>`,
-  cloud:`<svg viewBox="0 0 24 24" fill="none"><path d="M5 18h12a4.2 4.2 0 0 0 .5-8.4A6 6 0 0 0 6 11.4 3.8 3.8 0 0 0 5 18z" fill="#c9d3d9"/></svg>`,
-  fog:`<svg viewBox="0 0 24 24" fill="none" stroke="#9fb4c0" stroke-width="1.8" stroke-linecap="round"><path d="M4 9h16M3 13h18M5 17h14"/></svg>`,
-  rain:`<svg viewBox="0 0 24 24" fill="none"><path d="M5 14h12a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6 1.6A3.6 3.6 0 0 0 5 14z" fill="#c9d3d9"/><g stroke="#5b9bd5" stroke-width="1.6" stroke-linecap="round"><path d="M8 17.5l-1.2 2.4M12 17.5l-1.2 2.4M16 17.5l-1.2 2.4"/></g></svg>`,
-  storm:`<svg viewBox="0 0 24 24" fill="none"><path d="M5 12h12a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6 1.6A3.6 3.6 0 0 0 5 12z" fill="#c9d3d9"/><path d="M13 13l-3 5h2.4L11 22l4.6-6.4h-2.6l1.8-2.6z" fill="#ffc857"/></svg>`,
+  sun: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.6" fill="#ffc857"/><g stroke="#ffc857" stroke-width="1.6" stroke-linecap="round"><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></g></svg>`,
+  "sun-cloud": `<svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="10" r="4" fill="#ffc857"/><path d="M6 18h11a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6 1.6A3.6 3.6 0 0 0 6 18z" fill="#e9edf0" opacity="0.9"/></svg>`,
+  cloud: `<svg viewBox="0 0 24 24" fill="none"><path d="M5 18h12a4.2 4.2 0 0 0 .5-8.4A6 6 0 0 0 6 11.4 3.8 3.8 0 0 0 5 18z" fill="#c9d3d9"/></svg>`,
+  fog: `<svg viewBox="0 0 24 24" fill="none" stroke="#9fb4c0" stroke-width="1.8" stroke-linecap="round"><path d="M4 9h16M3 13h18M5 17h14"/></svg>`,
+  rain: `<svg viewBox="0 0 24 24" fill="none"><path d="M5 14h12a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6 1.6A3.6 3.6 0 0 0 5 14z" fill="#c9d3d9"/><g stroke="#5b9bd5" stroke-width="1.6" stroke-linecap="round"><path d="M8 17.5l-1.2 2.4M12 17.5l-1.2 2.4M16 17.5l-1.2 2.4"/></g></svg>`,
+  storm: `<svg viewBox="0 0 24 24" fill="none"><path d="M5 12h12a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6 1.6A3.6 3.6 0 0 0 5 12z" fill="#c9d3d9"/><path d="M13 13l-3 5h2.4L11 22l4.6-6.4h-2.6l1.8-2.6z" fill="#ffc857"/></svg>`,
 };
 
-/* ---------------- state ---------------- */
+/* ---------------- Global State ---------------- */
 let CURRENT = [];
-let TRENDS = [];
 
-function fmtTime(){
-  const now = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kuala_Lumpur'}));
-  const hh=String(now.getHours()).padStart(2,'0'), mm=String(now.getMinutes()).padStart(2,'0'), ss=String(now.getSeconds()).padStart(2,'0');
+function fmtTime() {
+  const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kuala_Lumpur' }));
+  const hh = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  const ss = String(now.getSeconds()).padStart(2, '0');
   document.getElementById('clockTime').textContent = `${hh}:${mm}:${ss}`;
-  document.getElementById('clockDate').textContent = now.toLocaleDateString('en-GB',{weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  document.getElementById('clockDate').textContent = now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
-setInterval(fmtTime,1000); fmtTime();
+setInterval(fmtTime, 1000);
+fmtTime();
 
-/* ---------------- load data.json from BigQuery ---------------- */
-async function loadData(){
+/* ---------------- Load Data from BigQuery JSON ---------------- */
+async function loadCurrent() {
   try {
-    const res = await fetch('data.json?cache=' + Date.now());
-    const data = await res.json();
+    const res = await fetch(`data.json?cache=${Date.now()}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: data.json not found.`);
     
-    TRENDS = data.trends || [];
-    CURRENT = CITIES.map(c => {
-      const bqRow = (data.current || []).find(r => r.city === c.name) || {};
+    const bqData = await res.json();
+
+    // Map BigQuery rows directly & calculate x/y coordinates dynamically
+    CURRENT = bqData.map(row => {
+      const region = row.region || "peninsula";
+      const b = BOX[region];
+      const x = ((row.longitude - b.lonMin) / (b.lonMax - b.lonMin)) * 100;
+      const y = ((b.latMax - row.latitude) / (b.latMax - b.latMin)) * 100;
+
       return {
-        ...c,
-        temp: bqRow.temperature != null ? Math.round(bqRow.temperature) : '--',
-        humidity: bqRow.humidity != null ? Math.round(bqRow.humidity) : '--',
-        wind: bqRow.wind_speed != null ? Math.round(bqRow.wind_speed) : '--',
-        code: bqRow.weather_code || 0
+        name: row.city,
+        state: row.state,
+        region: region,
+        lat: row.latitude,
+        lon: row.longitude,
+        temp: Math.round(row.temperature),
+        humidity: Math.round(row.humidity),
+        wind: Math.round(row.wind_speed),
+        code: row.weather_code ?? 0,
+        x: x,
+        y: y
       };
     });
 
-    const updateTime = data.updated_at ? new Date(data.updated_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) : 'Just now';
+    // Display last update time from BigQuery row inserted_at timestamp
+    const lastTime = bqData[0]?.inserted_at
+      ? new Date(bqData[0].inserted_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+      : 'Just now';
+
     document.getElementById('lastUpdated').innerHTML =
-      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> BigQuery updated ${updateTime}`;
-    
+      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> updated ${lastTime}`;
+
+    populateCitySelect();
     renderAll();
-    loadTrend("Kuala Lumpur");
   } catch (err) {
-    console.error("Failed to load BigQuery data.json:", err);
-    document.getElementById('lastUpdated').textContent = "Failed to load BigQuery data";
+    console.error("Failed to load BigQuery data:", err);
+    document.getElementById('lastUpdated').textContent = "Error loading BigQuery data";
   }
 }
 
-function renderKPIs(){
-  const valid = CURRENT.filter(c => typeof c.temp === 'number');
-  if(!valid.length) return;
-
-  const hottest = [...valid].sort((a,b)=>b.temp-a.temp)[0];
-  const coldest = [...valid].sort((a,b)=>a.temp-b.temp)[0];
-  const windiest = [...valid].sort((a,b)=>b.wind-a.wind)[0];
-  const humid = [...valid].sort((a,b)=>b.humidity-a.humidity)[0];
-  const avg = (valid.reduce((s,c)=>s+c.temp,0)/valid.length).toFixed(1);
+/* ---------------- UI Render Functions ---------------- */
+function renderKPIs() {
+  if (!CURRENT.length) return;
+  const hottest = [...CURRENT].sort((a, b) => b.temp - a.temp)[0];
+  const coldest = [...CURRENT].sort((a, b) => a.temp - b.temp)[0];
+  const windiest = [...CURRENT].sort((a, b) => b.wind - a.wind)[0];
+  const humid = [...CURRENT].sort((a, b) => b.humidity - a.humidity)[0];
+  const avg = (CURRENT.reduce((s, c) => s + c.temp, 0) / CURRENT.length).toFixed(1);
 
   const cards = [
-    {icon:"🌡️", label:"Hottest City", value:hottest.temp+"°C", city:hottest.name, glow:"var(--heat)"},
-    {icon:"❄️", label:"Coldest City", value:coldest.temp+"°C", city:coldest.name, glow:"var(--rain)"},
-    {icon:"💨", label:"Windiest City", value:windiest.wind+" km/h", city:windiest.name, glow:"var(--cool)"},
-    {icon:"💧", label:"Most Humid City", value:humid.humidity+"%", city:humid.name, glow:"var(--cool)"},
-    {icon:"🌤️", label:"Average Temp", value:avg+"°C", city:"across 16 stations", glow:"var(--gold)"},
-    {icon:"🏙️", label:"Cities Monitored", value:"16", city:"state & federal capitals", glow:"var(--heat)"},
+    { icon: "🌡️", label: "Hottest City", value: hottest.temp + "°C", city: hottest.name, glow: "var(--heat)" },
+    { icon: "❄️", label: "Coldest City", value: coldest.temp + "°C", city: coldest.name, glow: "var(--rain)" },
+    { icon: "💨", label: "Windiest City", value: windiest.wind + " km/h", city: windiest.name, glow: "var(--cool)" },
+    { icon: "💧", label: "Most Humid City", value: humid.humidity + "%", city: humid.name, glow: "var(--cool)" },
+    { icon: "🌤️", label: "Average Temp", value: avg + "°C", city: `across ${CURRENT.length} stations`, glow: "var(--gold)" },
+    { icon: "🏙️", label: "Cities Monitored", value: CURRENT.length, city: "state & federal capitals", glow: "var(--heat)" },
   ];
-  document.getElementById('kpiRow').innerHTML = cards.map(c=>`
+
+  document.getElementById('kpiRow').innerHTML = cards.map(c => `
     <div class="kpi-card">
       <div class="glow" style="background:${c.glow}"></div>
       <div class="kpi-icon">${c.icon}</div>
@@ -347,37 +343,37 @@ function renderKPIs(){
     </div>`).join('');
 }
 
-function tempColor(t){
-  if(t>=33) return "#ff7a45";
-  if(t>=29) return "#ffc857";
+function tempColor(t) {
+  if (t >= 33) return "#ff7a45";
+  if (t >= 29) return "#ffc857";
   return "#2dd4bf";
 }
 
-function renderMap(){
+function renderMap() {
   const pen = document.getElementById('mapPeninsula');
   const bor = document.getElementById('mapBorneo');
-  pen.innerHTML=''; bor.innerHTML='';
-  CURRENT.forEach(c=>{
+  pen.innerHTML = ''; bor.innerHTML = '';
+  CURRENT.forEach(c => {
     const el = document.createElement('div');
-    el.className='marker';
-    el.style.left=c.x+'%'; el.style.top=c.y+'%'; el.style.color=tempColor(c.temp);
+    el.className = 'marker';
+    el.style.left = c.x + '%'; el.style.top = c.y + '%'; el.style.color = tempColor(c.temp);
     el.innerHTML = `
       <div class="ring"></div><div class="ring r2"></div><div class="dot"></div>
       <div class="tip">
         <div class="name">📍 ${c.name}</div>
         <div class="stats"><span>${c.temp}°C</span><span>${c.humidity}%</span><span>${c.wind}km/h</span></div>
       </div>`;
-    (c.region==='peninsula'?pen:bor).appendChild(el);
+    (c.region === 'peninsula' ? pen : bor).appendChild(el);
   });
 }
 
-function renderRankings(){
-  const sorted = [...CURRENT].sort((a,b)=>(b.temp||0)-(a.temp||0));
-  const max = sorted[0]?.temp || 30, min = sorted[sorted.length-1]?.temp || 20;
-  document.getElementById('rankList').innerHTML = sorted.map((c,i)=>{
-    const pct = Math.max(8, (((c.temp||0)-min)/(max-min||1))*100);
+function renderRankings() {
+  const sorted = [...CURRENT].sort((a, b) => b.temp - a.temp);
+  const max = sorted[0].temp, min = sorted[sorted.length - 1].temp;
+  document.getElementById('rankList').innerHTML = sorted.map((c, i) => {
+    const pct = Math.max(8, ((c.temp - min) / (max - min || 1)) * 100);
     return `<div class="rank-row" onclick="selectCity('${c.name}')">
-      <div class="rank-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="rank-num">${String(i + 1).padStart(2, '0')}</div>
       <div class="rank-bar-wrap">
         <div class="rank-name"><span>${c.name}</span><span class="val">${c.temp}°C</span></div>
         <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:${pct}%"></div></div>
@@ -386,8 +382,8 @@ function renderRankings(){
   }).join('');
 }
 
-function renderStatus(){
-  document.getElementById('statusGrid').innerHTML = CURRENT.map(c=>{
+function renderStatus() {
+  document.getElementById('statusGrid').innerHTML = CURRENT.map(c => {
     const [label, icon] = wInfo(c.code);
     return `<div class="wcard">
       <div class="row1">
@@ -404,58 +400,61 @@ function renderStatus(){
   }).join('');
 }
 
-function populateCitySelect(){
+function populateCitySelect() {
   const sel = document.getElementById('citySelect');
-  sel.innerHTML = CITIES.map(c=>`<option value="${c.name}">${c.name}</option>`).join('');
+  sel.innerHTML = CURRENT.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
   sel.value = "Kuala Lumpur";
-  sel.addEventListener('change', ()=>loadTrend(sel.value));
+  sel.addEventListener('change', () => loadTrend(sel.value));
 }
 
-function selectCity(name){
+function selectCity(name) {
   document.getElementById('citySelect').value = name;
   loadTrend(name);
-  document.querySelector('.trend').scrollIntoView({behavior:'smooth', block:'center'});
+  document.querySelector('.trend').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-function loadTrend(cityName){
-  const cityTrends = TRENDS.filter(t => t.city === cityName);
-  if(!cityTrends.length) return;
-
-  const temps = cityTrends.map(t => parseFloat(t.temperature));
-  const times = cityTrends.map(t => String(t.observation_time));
-  
+async function loadTrend(cityName) {
+  const city = CURRENT.find(c => c.name === cityName);
+  if (!city) return;
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&hourly=temperature_2m&forecast_days=1&timezone=Asia%2FKuala_Lumpur`;
+  const res = await fetch(url);
+  const data = await res.json();
+  const temps = data.hourly.temperature_2m;
+  const times = data.hourly.time;
   drawChart(temps, times);
-  const max=Math.max(...temps), min=Math.min(...temps), avg=(temps.reduce((a,b)=>a+b,0)/temps.length).toFixed(1);
+  const max = Math.max(...temps), min = Math.min(...temps), avg = (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1);
   document.getElementById('chartMeta').innerHTML = `
     <div>PEAK<b style="color:var(--heat)">${max.toFixed(1)}°C</b></div>
     <div>LOW<b style="color:var(--cool)">${min.toFixed(1)}°C</b></div>
     <div>MEAN<b>${avg}°C</b></div>`;
 }
 
-function drawChart(temps, times){
+function drawChart(temps, times) {
   const svg = document.getElementById('trendChart');
-  const W=900, H=220, pad=30;
-  const max=Math.max(...temps), min=Math.min(...temps)-1;
-  const stepX = (W-pad*2)/Math.max(1, temps.length-1);
-  const pts = temps.map((t,i)=>{
-    const x = pad + i*stepX;
-    const y = H-pad - ((t-min)/(max-min||1))*(H-pad*1.4);
-    return [x,y];
+  const W = 900, H = 220, pad = 30;
+  const max = Math.max(...temps), min = Math.min(...temps) - 1;
+  const stepX = (W - pad * 2) / (temps.length - 1);
+  const pts = temps.map((t, i) => {
+    const x = pad + i * stepX;
+    const y = H - pad - ((t - min) / (max - min || 1)) * (H - pad * 1.4);
+    return [x, y];
   });
-  const linePath = pts.map((p,i)=>(i===0?'M':'L')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
-  const areaPath = linePath + ` L${pts[pts.length-1][0]},${H-pad} L${pts[0][0]},${H-pad} Z`;
+  const linePath = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+  const areaPath = linePath + ` L${pts[pts.length - 1][0]},${H - pad} L${pts[0][0]},${H - pad} Z`;
+  const nowHour = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kuala_Lumpur' })).getHours();
 
   let grid = '';
-  for(let i=0;i<=4;i++){
-    const y = pad + i*((H-pad*1.4)/4);
-    grid += `<line x1="${pad}" y1="${y}" x2="${W-pad}" y2="${y}" stroke="rgba(244,241,232,0.06)" stroke-width="1"/>`;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad + i * ((H - pad * 1.4) / 4);
+    grid += `<line x1="${pad}" y1="${y}" x2="${W - pad}" y2="${y}" stroke="rgba(244,241,232,0.06)" stroke-width="1"/>`;
   }
-  const dots = pts.map((p,i)=> i%3===0 ? `<circle cx="${p[0]}" cy="${p[1]}" r="2.4" fill="#ffc857"/>` : '').join('');
-  const labels = times.filter((_,i)=>i%4===0).map((t,idx)=>{
-    const i = idx*4;
-    const hour = t.includes('T') ? t.split('T')[1].slice(0,5) : t.slice(11,16);
-    return `<text x="${pad+i*stepX}" y="${H-8}" font-family="JetBrains Mono" font-size="10" fill="#5c7787" text-anchor="middle">${hour}</text>`;
+  const dots = pts.map((p, i) => i % 3 === 0 ? `<circle cx="${p[0]}" cy="${p[1]}" r="2.4" fill="#ffc857"/>` : '').join('');
+  const labels = times.filter((_, i) => i % 4 === 0).map((t, idx) => {
+    const i = idx * 4;
+    const hour = t.split('T')[1].slice(0, 5);
+    return `<text x="${pad + i * stepX}" y="${H - 8}" font-family="JetBrains Mono" font-size="10" fill="#5c7787" text-anchor="middle">${hour}</text>`;
   }).join('');
+  const nowMarker = nowHour < temps.length ? `<line x1="${pad + nowHour * stepX}" y1="${pad}" x2="${pad + nowHour * stepX}" y2="${H - pad}" stroke="#2dd4bf" stroke-width="1" stroke-dasharray="3,4" opacity="0.7"/>` : '';
 
   svg.innerHTML = `
     <defs>
@@ -465,22 +464,23 @@ function drawChart(temps, times){
       </linearGradient>
     </defs>
     ${grid}
+    ${nowMarker}
     <path d="${areaPath}" fill="url(#areaFill)"/>
-    <path d="${linePath}" fill="none" stroke="#ff7a45" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="${linePath}" fill="none" stroke="#ff7a45" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.2s ease forwards;"/>
     ${dots}
     ${labels}
   `;
 }
 
-function renderAll(){
+function renderAll() {
   renderKPIs();
   renderMap();
   renderRankings();
   renderStatus();
 }
 
-populateCitySelect();
-loadData();
+/* ---------------- Run ---------------- */
+loadCurrent();
 </script>
 </body>
 </html>

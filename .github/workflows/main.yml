@@ -29,8 +29,10 @@ jobs:
 
       # Create Google service account JSON file
       - name: Create Google credentials file
+        env:
+          GCP_KEY: ${{ secrets.GC_SERVICE_KEY_CREDENTIALS }}
         run: |
-          echo '${{ secrets.GC_SERVICE_KEY_CREDENTIALS }}' > key.json
+          python -c "import os, json; json.dump(json.loads(os.environ['GCP_KEY']), open('key.json', 'w'))"
 
       - name: Check credentials file existence
         run: |

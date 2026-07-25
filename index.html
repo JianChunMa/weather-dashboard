@@ -270,15 +270,25 @@ setInterval(fmtTime, 1000);
 fmtTime();
 
 /* ---------------- Load Data from BigQuery JSON ---------------- */
+/* ---------------- Global State ---------------- */
+
+let TRENDS = [];
+
 async function loadCurrent() {
   try {
     const res = await fetch(`data.json?cache=${Date.now()}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}: data.json not found.`);
-    
-    const bqData = await res.json();
 
-    // Map BigQuery rows directly & calculate x/y coordinates dynamically
-    CURRENT = bqData.map(row => {
+    const payload = await res.json();
+    
+    // 1. Save trends globally for the 24-hour chart
+    TRENDS = payload.trends || [];
+
+    // 2. Safely extract the array from payload.current
+    const currentRows = Array.isArray(payload.current) ? payload.current : [];
+
+    // 3. Map BigQuery rows and compute map coordinates dynamically
+    CURRENT = currentRows.map(row => {
       const region = row.region || "peninsula";
       const b = BOX[region];
       const x = ((row.longitude - b.lonMin) / (b.lonMax - b.lonMin)) * 100;
@@ -299,9 +309,9 @@ async function loadCurrent() {
       };
     });
 
-    // Display last update time from BigQuery row inserted_at timestamp
-    const lastTime = bqData[0]?.inserted_at
-      ? new Date(bqData[0].inserted_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+    // 4. Update the timestamp display
+    const lastTime = payload.updated_at
+      ? new Date(payload.updated_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
       : 'Just now';
 
     document.getElementById('lastUpdated').innerHTML =
@@ -309,12 +319,14 @@ async function loadCurrent() {
 
     populateCitySelect();
     renderAll();
+    
+    // Load chart using trend data from data.json
+    loadTrend("Kuala Lumpur");
   } catch (err) {
     console.error("Failed to load BigQuery data:", err);
     document.getElementById('lastUpdated').textContent = "Error loading BigQuery data";
   }
 }
-
 /* ---------------- UI Render Functions ---------------- */
 function renderKPIs() {
   if (!CURRENT.length) return;
@@ -413,16 +425,24 @@ function selectCity(name) {
   document.querySelector('.trend').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-async function loadTrend(cityName) {
-  const city = CURRENT.find(c => c.name === cityName);
-  if (!city) return;
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&hourly=temperature_2m&forecast_days=1&timezone=Asia%2FKuala_Lumpur`;
-  const res = await fetch(url);
-  const data = await res.json();
-  const temps = data.hourly.temperature_2m;
-  const times = data.hourly.time;
+function loadTrend(cityName) {
+  // Filter trend history for selected city
+  const cityTrends = TRENDS.filter(t => t.city === cityName);
+
+  if (!cityTrends.length) {
+    console.warn(`No trend data found in data.json for ${cityName}`);
+    return;
+  }
+
+  const temps = cityTrends.map(t => t.temperature);
+  const times = cityTrends.map(t => t.observation_time);
+
   drawChart(temps, times);
-  const max = Math.max(...temps), min = Math.min(...temps), avg = (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1);
+
+  const max = Math.max(...temps);
+  const min = Math.min(...temps);
+  const avg = (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1);
+
   document.getElementById('chartMeta').innerHTML = `
     <div>PEAK<b style="color:var(--heat)">${max.toFixed(1)}°C</b></div>
     <div>LOW<b style="color:var(--cool)">${min.toFixed(1)}°C</b></div>

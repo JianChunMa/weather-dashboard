@@ -471,7 +471,7 @@ function drawChart(temps, times) {
   const dots = pts.map((p, i) => i % 3 === 0 ? `<circle cx="${p[0]}" cy="${p[1]}" r="2.4" fill="#ffc857"/>` : '').join('');
   const labels = times.filter((_, i) => i % 4 === 0).map((t, idx) => {
     const i = idx * 4;
-    const hour = t.split('T')[1].slice(0, 5);
+    const hour = t ? t.split(/[ T]/)[1]?.slice(0, 5) ?? '--:--' : '--:--';
     return `<text x="${pad + i * stepX}" y="${H - 8}" font-family="JetBrains Mono" font-size="10" fill="#5c7787" text-anchor="middle">${hour}</text>`;
   }).join('');
   const nowMarker = nowHour < temps.length ? `<line x1="${pad + nowHour * stepX}" y1="${pad}" x2="${pad + nowHour * stepX}" y2="${H - pad}" stroke="#2dd4bf" stroke-width="1" stroke-dasharray="3,4" opacity="0.7"/>` : '';

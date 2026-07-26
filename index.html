@@ -281,35 +281,44 @@ async function loadCurrent() {
 
     const payload = await res.json();
     
-    // 1. Save trends globally for the 24-hour chart
+    // 1. Save trends globally
     TRENDS = payload.trends || [];
 
-    // 2. Safely extract the array from payload.current
+    // 2. Safely extract the array
     const currentRows = Array.isArray(payload.current) ? payload.current : [];
 
-    // 3. Map BigQuery rows and compute map coordinates dynamically
+    // 3. Parse numbers safely and compute coordinates
     CURRENT = currentRows.map(row => {
       const region = row.region || "peninsula";
-      const b = BOX[region];
-      const x = ((row.longitude - b.lonMin) / (b.lonMax - b.lonMin)) * 100;
-      const y = ((b.latMax - row.latitude) / (b.latMax - b.latMin)) * 100;
+      const b = BOX[region] || BOX.peninsula;
+
+      // Safely parse values into float/int to prevent NaN CSS issues
+      const lat = parseFloat(row.latitude);
+      const lon = parseFloat(row.longitude);
+      const temp = Math.round(parseFloat(row.temperature));
+      const humidity = Math.round(parseFloat(row.humidity));
+      const wind = Math.round(parseFloat(row.wind_speed));
+
+      // Calculate percentage positions within bounding box
+      const x = ((lon - b.lonMin) / (b.lonMax - b.lonMin)) * 100;
+      const y = ((b.latMax - lat) / (b.latMax - b.latMin)) * 100;
 
       return {
         name: row.city,
         state: row.state,
         region: region,
-        lat: row.latitude,
-        lon: row.longitude,
-        temp: Math.round(row.temperature),
-        humidity: Math.round(row.humidity),
-        wind: Math.round(row.wind_speed),
-        code: row.weather_code ?? 0,
-        x: x,
-        y: y
+        lat: lat,
+        lon: lon,
+        temp: isNaN(temp) ? 0 : temp,
+        humidity: isNaN(humidity) ? 0 : humidity,
+        wind: isNaN(wind) ? 0 : wind,
+        code: parseInt(row.weather_code ?? 0),
+        x: isNaN(x) ? 50 : x, // fallback to center if invalid
+        y: isNaN(y) ? 50 : y
       };
     });
 
-    // 4. Update the timestamp display
+    // 4. Update display timestamp
     const lastTime = payload.updated_at
       ? new Date(payload.updated_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
       : 'Just now';
@@ -320,13 +329,14 @@ async function loadCurrent() {
     populateCitySelect();
     renderAll();
     
-    // Load chart using trend data from data.json
+    // Load chart for default city
     loadTrend("Kuala Lumpur");
   } catch (err) {
     console.error("Failed to load BigQuery data:", err);
     document.getElementById('lastUpdated').textContent = "Error loading BigQuery data";
   }
 }
+
 /* ---------------- UI Render Functions ---------------- */
 function renderKPIs() {
   if (!CURRENT.length) return;

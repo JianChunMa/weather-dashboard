@@ -17,12 +17,18 @@ TABLE_ID = f"{PROJECT_ID}.weather_dashboard.weather_data"
 # Authentication
 # -------------------------
 
-credentials = service_account.Credentials.from_service_account_file("key.json")
+gcp_key_str = os.environ.get("GCP_KEY")
+
+if gcp_key_str:
+    # Running in GitHub Actions (loads directly from secret without writing to disk)
+    key_info = json.loads(gcp_key_str)
+    credentials = service_account.Credentials.from_service_account_info(key_info)
+else:
+    # Running locally with key.json
+    credentials = service_account.Credentials.from_service_account_file("key.json")
+
 client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
 
-# -------------------------
-# Malaysia State Capitals
-# -------------------------
 # -------------------------
 # Malaysia State Capitals & Federal Territories
 # -------------------------

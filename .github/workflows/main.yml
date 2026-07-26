@@ -28,16 +28,9 @@ jobs:
           pip install -r requirements.txt
 
       # Create Google service account JSON file
-      - name: Create Google credentials file
+      - name: Upload weather data & export JSON
         env:
           GCP_KEY: ${{ secrets.GC_SERVICE_KEY_CREDENTIALS }}
-        run: |
-          python -c "import os, json; json.dump(json.loads(os.environ['GCP_KEY']), open('key.json', 'w'))"
-
-      - name: Check credentials file existence
-        run: |
-          ls -la key.json
-          echo "key.json generated successfully (Size: $(stat -c%s key.json) bytes)"
 
       # Run weather uploader & exporter
       - name: Upload weather data & export JSON

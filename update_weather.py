@@ -103,7 +103,7 @@ if rows:
 
 # Query latest reading per city
 latest_query = f"""
-    SELECT city, state, temperature, humidity, wind_speed, weather_code, observation_time
+    SELECT city, state, region, latitude, longitude, temperature, humidity, wind_speed, weather_code, observation_time
     FROM (
         SELECT *, ROW_NUMBER() OVER (PARTITION BY city ORDER BY observation_time DESC) as rn
         FROM `{TABLE_ID}`

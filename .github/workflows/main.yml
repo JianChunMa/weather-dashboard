@@ -27,13 +27,10 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      # Create Google service account JSON file
+      # Run weather uploader & exporter
       - name: Upload weather data & export JSON
         env:
           GCP_KEY: ${{ secrets.GC_SERVICE_KEY_CREDENTIALS }}
-
-      # Run weather uploader & exporter
-      - name: Upload weather data & export JSON
         run: |
           python update_weather.py
 

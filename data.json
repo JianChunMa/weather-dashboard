@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-13T13:17:26.778367+00:00",
+  "updated_at": "2026-08-13T15:00:06.688768+00:00",
   "current": [
     {
       "city": "Alor Setar",
@@ -197,11 +197,6 @@
   "trends": [
     {
       "city": "Alor Setar",
-      "temperature": 31.0,
-      "observation_time": "2026-08-12 14:15:00+00:00"
-    },
-    {
-      "city": "Alor Setar",
       "temperature": 30.1,
       "observation_time": "2026-08-12 16:15:00+00:00"
     },
@@ -294,11 +289,6 @@
       "city": "Alor Setar",
       "temperature": 25.6,
       "observation_time": "2026-08-13 21:15:00+00:00"
-    },
-    {
-      "city": "George Town",
-      "temperature": 31.2,
-      "observation_time": "2026-08-12 14:15:00+00:00"
     },
     {
       "city": "George Town",
@@ -397,11 +387,6 @@
     },
     {
       "city": "Ipoh",
-      "temperature": 33.2,
-      "observation_time": "2026-08-12 14:15:00+00:00"
-    },
-    {
-      "city": "Ipoh",
       "temperature": 34.6,
       "observation_time": "2026-08-12 16:15:00+00:00"
     },
@@ -494,11 +479,6 @@
       "city": "Ipoh",
       "temperature": 25.0,
       "observation_time": "2026-08-13 21:15:00+00:00"
-    },
-    {
-      "city": "Johor Bahru",
-      "temperature": 32.4,
-      "observation_time": "2026-08-12 14:15:00+00:00"
     },
     {
       "city": "Johor Bahru",
@@ -597,11 +577,6 @@
     },
     {
       "city": "Kangar",
-      "temperature": 32.2,
-      "observation_time": "2026-08-12 14:15:00+00:00"
-    },
-    {
-      "city": "Kangar",
       "temperature": 30.4,
       "observation_time": "2026-08-12 16:15:00+00:00"
     },
@@ -694,11 +669,6 @@
       "city": "Kangar",
       "temperature": 26.2,
       "observation_time": "2026-08-13 21:15:00+00:00"
-    },
-    {
-      "city": "Kota Bharu",
-      "temperature": 32.5,
-      "observation_time": "2026-08-12 14:15:00+00:00"
     },
     {
       "city": "Kota Bharu",
@@ -797,11 +767,6 @@
     },
     {
       "city": "Kota Kinabalu",
-      "temperature": 32.7,
-      "observation_time": "2026-08-12 14:15:00+00:00"
-    },
-    {
-      "city": "Kota Kinabalu",
       "temperature": 31.6,
       "observation_time": "2026-08-12 16:15:00+00:00"
     },
@@ -894,11 +859,6 @@
       "city": "Kota Kinabalu",
       "temperature": 27.0,
       "observation_time": "2026-08-13 21:15:00+00:00"
-    },
-    {
-      "city": "Kuala Lumpur",
-      "temperature": 34.1,
-      "observation_time": "2026-08-12 14:15:00+00:00"
     },
     {
       "city": "Kuala Lumpur",
@@ -997,11 +957,6 @@
     },
     {
       "city": "Kuala Terengganu",
-      "temperature": 31.2,
-      "observation_time": "2026-08-12 14:15:00+00:00"
-    },
-    {
-      "city": "Kuala Terengganu",
       "temperature": 30.5,
       "observation_time": "2026-08-12 16:15:00+00:00"
     },
@@ -1097,11 +1052,6 @@
     },
     {
       "city": "Kuantan",
-      "temperature": 30.8,
-      "observation_time": "2026-08-12 14:15:00+00:00"
-    },
-    {
-      "city": "Kuantan",
       "temperature": 30.1,
       "observation_time": "2026-08-12 16:15:00+00:00"
     },
@@ -1194,11 +1144,6 @@
       "city": "Kuantan",
       "temperature": 28.1,
       "observation_time": "2026-08-13 21:15:00+00:00"
-    },
-    {
-      "city": "Kuching",
-      "temperature": 33.7,
-      "observation_time": "2026-08-12 14:15:00+00:00"
     },
     {
       "city": "Kuching",
@@ -1298,11 +1243,6 @@
     {
       "city": "Melaka City",
       "temperature": 32.8,
-      "observation_time": "2026-08-12 14:15:00+00:00"
-    },
-    {
-      "city": "Melaka City",
-      "temperature": 32.8,
       "observation_time": "2026-08-12 16:15:00+00:00"
     },
     {
@@ -1394,11 +1334,6 @@
       "city": "Melaka City",
       "temperature": 29.2,
       "observation_time": "2026-08-13 21:15:00+00:00"
-    },
-    {
-      "city": "Putrajaya",
-      "temperature": 32.7,
-      "observation_time": "2026-08-12 14:15:00+00:00"
     },
     {
       "city": "Putrajaya",
@@ -1497,11 +1432,6 @@
     },
     {
       "city": "Seremban",
-      "temperature": 32.7,
-      "observation_time": "2026-08-12 14:15:00+00:00"
-    },
-    {
-      "city": "Seremban",
       "temperature": 32.4,
       "observation_time": "2026-08-12 16:15:00+00:00"
     },
@@ -1597,11 +1527,6 @@
     },
     {
       "city": "Shah Alam",
-      "temperature": 33.1,
-      "observation_time": "2026-08-12 14:15:00+00:00"
-    },
-    {
-      "city": "Shah Alam",
       "temperature": 32.2,
       "observation_time": "2026-08-12 16:15:00+00:00"
     },
@@ -1694,11 +1619,6 @@
       "city": "Shah Alam",
       "temperature": 28.6,
       "observation_time": "2026-08-13 21:15:00+00:00"
-    },
-    {
-      "city": "Victoria",
-      "temperature": 32.1,
-      "observation_time": "2026-08-12 14:15:00+00:00"
     },
     {
       "city": "Victoria",

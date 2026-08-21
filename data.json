@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-21T19:27:35.116854+00:00",
+  "updated_at": "2026-08-21T20:28:55.559578+00:00",
   "current": [
     {
       "city": "Alor Setar",
@@ -8,10 +8,10 @@
       "latitude": 6.1511426,
       "longitude": 100.37594,
       "temperature": 24.6,
-      "humidity": 97,
-      "wind_speed": 7.0,
-      "weather_code": 1,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "humidity": 96,
+      "wind_speed": 7.1,
+      "weather_code": 2,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "George Town",
@@ -19,11 +19,11 @@
       "region": "peninsula",
       "latitude": 5.448155,
       "longitude": 100.28998,
-      "temperature": 27.6,
-      "humidity": 90,
-      "wind_speed": 1.2,
+      "temperature": 27.0,
+      "humidity": 95,
+      "wind_speed": 3.3,
       "weather_code": 1,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Ipoh",
@@ -31,11 +31,11 @@
       "region": "peninsula",
       "latitude": 4.6045694,
       "longitude": 101.074646,
-      "temperature": 24.6,
+      "temperature": 24.4,
       "humidity": 100,
-      "wind_speed": 5.2,
+      "wind_speed": 6.1,
       "weather_code": 3,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Johor Bahru",
@@ -43,11 +43,11 @@
       "region": "peninsula",
       "latitude": 1.5114235,
       "longitude": 103.752975,
-      "temperature": 24.8,
-      "humidity": 88,
-      "wind_speed": 6.2,
-      "weather_code": 3,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "temperature": 24.7,
+      "humidity": 89,
+      "wind_speed": 6.4,
+      "weather_code": 2,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kangar",
@@ -55,11 +55,11 @@
       "region": "peninsula",
       "latitude": 6.4323373,
       "longitude": 100.1844,
-      "temperature": 25.1,
+      "temperature": 24.8,
       "humidity": 98,
-      "wind_speed": 2.7,
-      "weather_code": 1,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "wind_speed": 5.9,
+      "weather_code": 2,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kota Bharu",
@@ -67,11 +67,11 @@
       "region": "peninsula",
       "latitude": 6.1511426,
       "longitude": 102.25563,
-      "temperature": 27.1,
-      "humidity": 90,
-      "wind_speed": 4.3,
-      "weather_code": 1,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "temperature": 26.7,
+      "humidity": 91,
+      "wind_speed": 6.6,
+      "weather_code": 55,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kota Kinabalu",
@@ -79,11 +79,11 @@
       "region": "borneo",
       "latitude": 5.940246,
       "longitude": 116.100006,
-      "temperature": 25.0,
+      "temperature": 25.2,
       "humidity": 79,
-      "wind_speed": 4.8,
-      "weather_code": 2,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "wind_speed": 3.8,
+      "weather_code": 3,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kuala Lumpur",
@@ -91,11 +91,11 @@
       "region": "peninsula",
       "latitude": 3.1282952,
       "longitude": 101.68548,
-      "temperature": 25.1,
-      "humidity": 94,
-      "wind_speed": 2.9,
+      "temperature": 24.7,
+      "humidity": 95,
+      "wind_speed": 2.3,
       "weather_code": 0,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kuala Terengganu",
@@ -103,11 +103,11 @@
       "region": "peninsula",
       "latitude": 5.307557,
       "longitude": 103.10174,
-      "temperature": 26.6,
-      "humidity": 89,
-      "wind_speed": 10.6,
+      "temperature": 26.3,
+      "humidity": 91,
+      "wind_speed": 9.5,
       "weather_code": 0,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kuantan",
@@ -115,11 +115,11 @@
       "region": "peninsula",
       "latitude": 3.8312829,
       "longitude": 103.31707,
-      "temperature": 26.9,
-      "humidity": 90,
+      "temperature": 26.5,
+      "humidity": 91,
       "wind_speed": 8.9,
       "weather_code": 0,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kuching",
@@ -127,11 +127,11 @@
       "region": "borneo",
       "latitude": 1.5817223,
       "longitude": 110.324875,
-      "temperature": 24.7,
-      "humidity": 94,
-      "wind_speed": 2.1,
-      "weather_code": 80,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "temperature": 24.2,
+      "humidity": 100,
+      "wind_speed": 5.5,
+      "weather_code": 3,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Melaka City",
@@ -139,11 +139,11 @@
       "region": "peninsula",
       "latitude": 2.2144113,
       "longitude": 102.282524,
-      "temperature": 26.3,
-      "humidity": 83,
-      "wind_speed": 10.5,
-      "weather_code": 2,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "temperature": 25.7,
+      "humidity": 84,
+      "wind_speed": 12.4,
+      "weather_code": 0,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Putrajaya",
@@ -151,11 +151,11 @@
       "region": "peninsula",
       "latitude": 2.917399,
       "longitude": 101.72969,
-      "temperature": 26.1,
-      "humidity": 85,
-      "wind_speed": 4.9,
+      "temperature": 25.8,
+      "humidity": 86,
+      "wind_speed": 4.6,
       "weather_code": 0,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Seremban",
@@ -165,9 +165,9 @@
       "longitude": 101.91814,
       "temperature": 26.4,
       "humidity": 82,
-      "wind_speed": 7.7,
+      "wind_speed": 8.3,
       "weather_code": 0,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Shah Alam",
@@ -175,11 +175,11 @@
       "region": "peninsula",
       "latitude": 3.0579963,
       "longitude": 101.53102,
-      "temperature": 27.0,
-      "humidity": 83,
-      "wind_speed": 6.4,
+      "temperature": 26.7,
+      "humidity": 84,
+      "wind_speed": 6.2,
       "weather_code": 0,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Victoria",
@@ -187,11 +187,11 @@
       "region": "borneo",
       "latitude": 5.307557,
       "longitude": 115.23573,
-      "temperature": 29.9,
-      "humidity": 66,
-      "wind_speed": 10.2,
+      "temperature": 29.6,
+      "humidity": 68,
+      "wind_speed": 8.4,
       "weather_code": 3,
-      "observation_time": "2026-08-22 03:15:00+00:00"
+      "observation_time": "2026-08-22 04:15:00+00:00"
     }
   ],
   "trends": [
@@ -346,6 +346,11 @@
       "observation_time": "2026-08-22 03:15:00+00:00"
     },
     {
+      "city": "Alor Setar",
+      "temperature": 24.6,
+      "observation_time": "2026-08-22 04:15:00+00:00"
+    },
+    {
       "city": "George Town",
       "temperature": 28.1,
       "observation_time": "2026-08-20 20:45:00+00:00"
@@ -494,6 +499,11 @@
       "city": "George Town",
       "temperature": 27.6,
       "observation_time": "2026-08-22 03:15:00+00:00"
+    },
+    {
+      "city": "George Town",
+      "temperature": 27.0,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Ipoh",
@@ -646,6 +656,11 @@
       "observation_time": "2026-08-22 03:15:00+00:00"
     },
     {
+      "city": "Ipoh",
+      "temperature": 24.4,
+      "observation_time": "2026-08-22 04:15:00+00:00"
+    },
+    {
       "city": "Johor Bahru",
       "temperature": 28.2,
       "observation_time": "2026-08-20 20:45:00+00:00"
@@ -794,6 +809,11 @@
       "city": "Johor Bahru",
       "temperature": 24.8,
       "observation_time": "2026-08-22 03:15:00+00:00"
+    },
+    {
+      "city": "Johor Bahru",
+      "temperature": 24.7,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kangar",
@@ -946,6 +966,11 @@
       "observation_time": "2026-08-22 03:15:00+00:00"
     },
     {
+      "city": "Kangar",
+      "temperature": 24.8,
+      "observation_time": "2026-08-22 04:15:00+00:00"
+    },
+    {
       "city": "Kota Bharu",
       "temperature": 28.6,
       "observation_time": "2026-08-20 20:45:00+00:00"
@@ -1094,6 +1119,11 @@
       "city": "Kota Bharu",
       "temperature": 27.1,
       "observation_time": "2026-08-22 03:15:00+00:00"
+    },
+    {
+      "city": "Kota Bharu",
+      "temperature": 26.7,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kota Kinabalu",
@@ -1246,6 +1276,11 @@
       "observation_time": "2026-08-22 03:15:00+00:00"
     },
     {
+      "city": "Kota Kinabalu",
+      "temperature": 25.2,
+      "observation_time": "2026-08-22 04:15:00+00:00"
+    },
+    {
       "city": "Kuala Lumpur",
       "temperature": 29.0,
       "observation_time": "2026-08-20 20:45:00+00:00"
@@ -1394,6 +1429,11 @@
       "city": "Kuala Lumpur",
       "temperature": 25.1,
       "observation_time": "2026-08-22 03:15:00+00:00"
+    },
+    {
+      "city": "Kuala Lumpur",
+      "temperature": 24.7,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kuala Terengganu",
@@ -1546,6 +1586,11 @@
       "observation_time": "2026-08-22 03:15:00+00:00"
     },
     {
+      "city": "Kuala Terengganu",
+      "temperature": 26.3,
+      "observation_time": "2026-08-22 04:15:00+00:00"
+    },
+    {
       "city": "Kuantan",
       "temperature": 28.9,
       "observation_time": "2026-08-20 20:45:00+00:00"
@@ -1694,6 +1739,11 @@
       "city": "Kuantan",
       "temperature": 26.9,
       "observation_time": "2026-08-22 03:15:00+00:00"
+    },
+    {
+      "city": "Kuantan",
+      "temperature": 26.5,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Kuching",
@@ -1846,6 +1896,11 @@
       "observation_time": "2026-08-22 03:15:00+00:00"
     },
     {
+      "city": "Kuching",
+      "temperature": 24.2,
+      "observation_time": "2026-08-22 04:15:00+00:00"
+    },
+    {
       "city": "Melaka City",
       "temperature": 29.4,
       "observation_time": "2026-08-20 20:45:00+00:00"
@@ -1994,6 +2049,11 @@
       "city": "Melaka City",
       "temperature": 26.3,
       "observation_time": "2026-08-22 03:15:00+00:00"
+    },
+    {
+      "city": "Melaka City",
+      "temperature": 25.7,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Putrajaya",
@@ -2146,6 +2206,11 @@
       "observation_time": "2026-08-22 03:15:00+00:00"
     },
     {
+      "city": "Putrajaya",
+      "temperature": 25.8,
+      "observation_time": "2026-08-22 04:15:00+00:00"
+    },
+    {
       "city": "Seremban",
       "temperature": 28.2,
       "observation_time": "2026-08-20 20:45:00+00:00"
@@ -2294,6 +2359,11 @@
       "city": "Seremban",
       "temperature": 26.4,
       "observation_time": "2026-08-22 03:15:00+00:00"
+    },
+    {
+      "city": "Seremban",
+      "temperature": 26.4,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     },
     {
       "city": "Shah Alam",
@@ -2446,6 +2516,11 @@
       "observation_time": "2026-08-22 03:15:00+00:00"
     },
     {
+      "city": "Shah Alam",
+      "temperature": 26.7,
+      "observation_time": "2026-08-22 04:15:00+00:00"
+    },
+    {
       "city": "Victoria",
       "temperature": 29.4,
       "observation_time": "2026-08-20 20:45:00+00:00"
@@ -2594,6 +2669,11 @@
       "city": "Victoria",
       "temperature": 29.9,
       "observation_time": "2026-08-22 03:15:00+00:00"
+    },
+    {
+      "city": "Victoria",
+      "temperature": 29.6,
+      "observation_time": "2026-08-22 04:15:00+00:00"
     }
   ]
 }
